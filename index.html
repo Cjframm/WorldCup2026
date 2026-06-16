@@ -54,49 +54,23 @@
             </section>
         </main>
 
-        <!-- Footer with Admin Access -->
+        <!-- Footer -->
         <footer class="app-footer">
-            <button class="admin-access-btn" onclick="showAdminPrompt()">⚙️</button>
+            <button id="lockBtn" class="lock-btn" onclick="togglePlayersLock()">🔒 Players</button>
             <p>&copy; 2026 LR World Cup</p>
         </footer>
 
-        <!-- Admin Modal -->
-        <div id="adminModal" class="modal hidden">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2>Admin Dashboard</h2>
-                    <button class="close-btn" onclick="closeAdminModal()">×</button>
-                </div>
-                <div class="modal-body">
-                    <div class="admin-section">
-                        <h3>Player Management</h3>
-                        <div class="form-group">
-                            <input type="text" id="playerName" placeholder="Player name" />
-                            <select id="teamSelect">
-                                <option value="">Select Team</option>
-                            </select>
-                            <button onclick="addPlayer()">Add</button>
-                        </div>
-                        <div id="players-list" class="players-table"></div>
-                    </div>
-
-                    <div class="admin-section">
-                        <h3>Bulk Import</h3>
-                        <textarea id="bulkImportText" placeholder="Name, Team&#10;John, Argentina&#10;Sarah, Brazil"></textarea>
-                        <button onclick="bulkImportPlayers()" class="btn-primary">Import</button>
-                    </div>
-
-                    <div class="admin-section">
-                        <h3>Update Scores</h3>
-                        <div id="score-updates"></div>
-                    </div>
-
-                    <div class="admin-section">
-                        <h3>Data Management</h3>
-                        <button onclick="exportPlayersToFile()" class="btn-secondary">Export Players (JSON)</button>
-                        <button onclick="exportData()" class="btn-secondary">Export All Data</button>
-                        <button onclick="clearAllData()" class="btn-danger">Clear All</button>
-                    </div>
+        <!-- PIN Modal -->
+        <div id="pinModal" class="pin-overlay hidden">
+            <div class="pin-modal">
+                <div class="pin-icon">🔒</div>
+                <h2 class="pin-title">Players are locked</h2>
+                <p class="pin-subtitle">Enter the PIN to reveal player names</p>
+                <input id="pinInput" class="pin-input" type="password" maxlength="4" placeholder="••••" inputmode="numeric" />
+                <p id="pinError" class="pin-error hidden">Incorrect PIN — try again</p>
+                <div class="pin-actions">
+                    <button type="button" class="pin-btn-cancel" onclick="closePinModal()">Cancel</button>
+                    <button type="button" class="pin-btn-submit" onclick="submitPin()">Unlock</button>
                 </div>
             </div>
         </div>
