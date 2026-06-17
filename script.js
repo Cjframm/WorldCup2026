@@ -65,16 +65,16 @@ const ALL_MATCHES = [
     { id: 48, group: 'H', stage: 'group',    team1: 'Uruguay',           team2: 'Spain',                 date: '2026-06-26', status: 'upcoming',  score1: null, score2: null },
 
     // GROUP I
-    { id: 49, group: 'I', stage: 'group',    team1: 'France',            team2: 'Senegal',               date: '2026-06-16', status: 'upcoming',  score1: null, score2: null },
-    { id: 50, group: 'I', stage: 'group',    team1: 'Iraq',              team2: 'Norway',                date: '2026-06-16', status: 'upcoming',  score1: null, score2: null },
+    { id: 49, group: 'I', stage: 'group',    team1: 'France',            team2: 'Senegal',               date: '2026-06-16', status: 'completed', score1: 3,    score2: 1    },
+    { id: 50, group: 'I', stage: 'group',    team1: 'Iraq',              team2: 'Norway',                date: '2026-06-16', status: 'completed', score1: 1,    score2: 4    },
     { id: 51, group: 'I', stage: 'group',    team1: 'France',            team2: 'Iraq',                  date: '2026-06-22', status: 'upcoming',  score1: null, score2: null },
     { id: 52, group: 'I', stage: 'group',    team1: 'Norway',            team2: 'Senegal',               date: '2026-06-22', status: 'upcoming',  score1: null, score2: null },
     { id: 53, group: 'I', stage: 'group',    team1: 'Norway',            team2: 'France',                date: '2026-06-26', status: 'upcoming',  score1: null, score2: null },
     { id: 54, group: 'I', stage: 'group',    team1: 'Senegal',           team2: 'Iraq',                  date: '2026-06-26', status: 'upcoming',  score1: null, score2: null },
 
     // GROUP J
-    { id: 55, group: 'J', stage: 'group',    team1: 'Argentina',         team2: 'Algeria',               date: '2026-06-16', status: 'upcoming',  score1: null, score2: null },
-    { id: 56, group: 'J', stage: 'group',    team1: 'Austria',           team2: 'Jordan',                date: '2026-06-16', status: 'upcoming',  score1: null, score2: null },
+    { id: 55, group: 'J', stage: 'group',    team1: 'Argentina',         team2: 'Algeria',               date: '2026-06-16', status: 'completed', score1: 3,    score2: 0    },
+    { id: 56, group: 'J', stage: 'group',    team1: 'Austria',           team2: 'Jordan',                date: '2026-06-16', status: 'completed', score1: 3,    score2: 1    },
     { id: 57, group: 'J', stage: 'group',    team1: 'Argentina',         team2: 'Austria',               date: '2026-06-22', status: 'upcoming',  score1: null, score2: null },
     { id: 58, group: 'J', stage: 'group',    team1: 'Jordan',            team2: 'Algeria',               date: '2026-06-22', status: 'upcoming',  score1: null, score2: null },
     { id: 59, group: 'J', stage: 'group',    team1: 'Algeria',           team2: 'Austria',               date: '2026-06-27', status: 'upcoming',  score1: null, score2: null },
@@ -348,17 +348,71 @@ function renderSchedule() {
     groupSchedule.innerHTML = '';
     knockoutSchedule.innerHTML = '';
 
-    appData.matches.forEach(match => {
-        const item = document.createElement('div');
-        item.className = 'fixture-item';
-        const dateStr = new Date(match.date + 'T12:00:00')
-            .toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' });
-        const p1 = getPlayerName(match.team1);
-        const p2 = getPlayerName(match.team2);
-        item.innerHTML = `
-            <div class="fixture-team">${match.team1}${p1 ? `<div class="fixture-player">${p1}</div>` : ''}</div>
-            <div class="fixture-date">${dateStr}</div>
-            <div class="fixture-team fixture-team-right">${match.team2}${p2 ? `<div class="fixture-player">${p2}</div>` : ''}</div>`;
-        (match.stage === 'group' ? groupSchedule : knockoutSchedule).appendChild(item);
+    // Group stage — grouped by group letter
+    ['A','B','C','D','E','F','G','H','I','J','K','L'].forEach(letter => {
+        const matches = appData.matches.filter(m => m.group === letter);
+        if (!matches.length) return;
+
+        const section = document.createElement('div');
+        section.className = 'fixture-group';
+        section.innerHTML = `<div class="fixture-group-header">GROUP ${letter}</div>`;
+
+        matches.forEach(match => {
+            const dateStr = new Date(match.date + 'T12:00:00')
+                .toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' });
+            const p1 = getPlayerName(match.team1);
+            const p2 = getPlayerName(match.team2);
+            const played = match.score1 !== null;
+            const item = document.createElement('div');
+            item.className = 'fixture-item' + (played ? ' fixture-played' : '');
+            item.innerHTML = `
+                <div class="fixture-team">${match.team1}${p1 ? `<div class="fixture-player">${p1}</div>` : ''}</div>
+                <div class="fixture-center">
+                    <div class="fixture-date">${dateStr}</div>
+                    ${played ? `<div class="fixture-result">${match.score1} – ${match.score2}</div>` : ''}
+                </div>
+                <div class="fixture-team fixture-team-right">${match.team2}${p2 ? `<div class="fixture-player">${p2}</div>` : ''}</div>`;
+            section.appendChild(item);
+        });
+
+        groupSchedule.appendChild(section);
+    });
+
+    // Knockout stage — grouped by round
+    const rounds = [
+        { label: 'Round of 16',  indices: [72, 73, 74, 75, 76, 77, 78, 79] },
+        { label: 'Quarter-finals', indices: [80, 81, 82, 83] },
+        { label: 'Semi-finals',  indices: [84, 85] },
+        { label: 'Third Place',  indices: [86] },
+        { label: 'Final',        indices: [87] }
+    ];
+
+    rounds.forEach(({ label, indices }) => {
+        const matches = indices.map(i => appData.matches[i]).filter(Boolean);
+        if (!matches.length) return;
+
+        const section = document.createElement('div');
+        section.className = 'fixture-group';
+        section.innerHTML = `<div class="fixture-group-header">${label}</div>`;
+
+        matches.forEach(match => {
+            const dateStr = new Date(match.date + 'T12:00:00')
+                .toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' });
+            const p1 = getPlayerName(match.team1);
+            const p2 = getPlayerName(match.team2);
+            const played = match.score1 !== null;
+            const item = document.createElement('div');
+            item.className = 'fixture-item' + (played ? ' fixture-played' : '');
+            item.innerHTML = `
+                <div class="fixture-team">${match.team1}${p1 ? `<div class="fixture-player">${p1}</div>` : ''}</div>
+                <div class="fixture-center">
+                    <div class="fixture-date">${dateStr}</div>
+                    ${played ? `<div class="fixture-result">${match.score1} – ${match.score2}</div>` : ''}
+                </div>
+                <div class="fixture-team fixture-team-right">${match.team2}${p2 ? `<div class="fixture-player">${p2}</div>` : ''}</div>`;
+            section.appendChild(item);
+        });
+
+        knockoutSchedule.appendChild(section);
     });
 }

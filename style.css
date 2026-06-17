@@ -414,6 +414,24 @@ body {
     display: block;
 }
 
+.fixture-group {
+    margin-bottom: 24px;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border: 1px solid var(--border);
+}
+
+.fixture-group-header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    padding: 12px 16px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
 .fixture-item {
     padding: 12px 16px;
     background: var(--bg);
@@ -426,6 +444,21 @@ body {
 
 .fixture-item:last-child {
     border-bottom: none;
+}
+
+.fixture-item.fixture-played {
+    background: white;
+}
+
+.fixture-center {
+    text-align: center;
+}
+
+.fixture-result {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--primary);
+    margin-top: 2px;
 }
 
 .fixture-team {
