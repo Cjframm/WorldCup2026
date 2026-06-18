@@ -81,16 +81,16 @@ const ALL_MATCHES = [
     { id: 60, group: 'J', stage: 'group',    team1: 'Jordan',            team2: 'Argentina',             date: '2026-06-27', status: 'upcoming',  score1: null, score2: null },
 
     // GROUP K
-    { id: 61, group: 'K', stage: 'group',    team1: 'Portugal',          team2: 'DR Congo',              date: '2026-06-17', status: 'upcoming',  score1: null, score2: null },
-    { id: 62, group: 'K', stage: 'group',    team1: 'Uzbekistan',        team2: 'Colombia',              date: '2026-06-17', status: 'upcoming',  score1: null, score2: null },
+    { id: 61, group: 'K', stage: 'group',    team1: 'Portugal',          team2: 'DR Congo',              date: '2026-06-17', status: 'completed', score1: 1,    score2: 1    },
+    { id: 62, group: 'K', stage: 'group',    team1: 'Uzbekistan',        team2: 'Colombia',              date: '2026-06-17', status: 'completed', score1: 1,    score2: 3    },
     { id: 63, group: 'K', stage: 'group',    team1: 'Portugal',          team2: 'Uzbekistan',            date: '2026-06-23', status: 'upcoming',  score1: null, score2: null },
     { id: 64, group: 'K', stage: 'group',    team1: 'Colombia',          team2: 'DR Congo',              date: '2026-06-23', status: 'upcoming',  score1: null, score2: null },
     { id: 65, group: 'K', stage: 'group',    team1: 'Colombia',          team2: 'Portugal',              date: '2026-06-27', status: 'upcoming',  score1: null, score2: null },
     { id: 66, group: 'K', stage: 'group',    team1: 'DR Congo',          team2: 'Uzbekistan',            date: '2026-06-27', status: 'upcoming',  score1: null, score2: null },
 
     // GROUP L
-    { id: 67, group: 'L', stage: 'group',    team1: 'England',           team2: 'Croatia',               date: '2026-06-17', status: 'upcoming',  score1: null, score2: null },
-    { id: 68, group: 'L', stage: 'group',    team1: 'Ghana',             team2: 'Panama',                date: '2026-06-17', status: 'upcoming',  score1: null, score2: null },
+    { id: 67, group: 'L', stage: 'group',    team1: 'England',           team2: 'Croatia',               date: '2026-06-17', status: 'completed', score1: 4,    score2: 2    },
+    { id: 68, group: 'L', stage: 'group',    team1: 'Ghana',             team2: 'Panama',                date: '2026-06-17', status: 'completed', score1: 1,    score2: 0    },
     { id: 69, group: 'L', stage: 'group',    team1: 'England',           team2: 'Ghana',                 date: '2026-06-23', status: 'upcoming',  score1: null, score2: null },
     { id: 70, group: 'L', stage: 'group',    team1: 'Panama',            team2: 'Croatia',               date: '2026-06-23', status: 'upcoming',  score1: null, score2: null },
     { id: 71, group: 'L', stage: 'group',    team1: 'Panama',            team2: 'England',               date: '2026-06-27', status: 'upcoming',  score1: null, score2: null },
@@ -178,7 +178,9 @@ function togglePlayersLock() {
 
 function updateLockButton() {
     const btn = document.getElementById('lockBtn');
-    if (btn) btn.textContent = playersUnlocked ? '🔓 Players' : '🔒 Players';
+    if (!btn) return;
+    btn.textContent = playersUnlocked ? '🔓 Players' : '🔒 Players';
+    btn.classList.toggle('unlocked', playersUnlocked);
 }
 
 function openPinModal() {
@@ -219,9 +221,25 @@ function getPlayerName(team) {
 // ── Render ────────────────────────────────────────────────────────────────────
 
 function renderAll() {
+    renderStatsBar();
     renderStandings();
-    renderMatches();
     renderSchedule();
+}
+
+function renderStatsBar() {
+    const container = document.getElementById('stats-bar');
+    const played = appData.matches.filter(m => m.score1 !== null);
+    const totalGoals = played.reduce((sum, m) => sum + m.score1 + m.score2, 0);
+    const avgGoals = played.length ? (totalGoals / played.length).toFixed(2) : '0.00';
+    const groupTotal = appData.matches.filter(m => m.stage === 'group').length;
+    const groupPlayed = played.filter(m => m.stage === 'group').length;
+
+    container.innerHTML = `
+        <div class="stat-pill"><span class="stat-value">${played.length}</span><span class="stat-label">Played</span></div>
+        <div class="stat-pill"><span class="stat-value">${totalGoals}</span><span class="stat-label">Goals</span></div>
+        <div class="stat-pill"><span class="stat-value">${avgGoals}</span><span class="stat-label">Goals / Match</span></div>
+        <div class="stat-pill"><span class="stat-value">${groupPlayed}/${groupTotal}</span><span class="stat-label">Group Stage</span></div>
+    `;
 }
 
 function renderStandings() {
@@ -300,45 +318,6 @@ function renderStandings() {
         html += '</div>';
         groupCard.innerHTML = html;
         container.appendChild(groupCard);
-    });
-}
-
-function renderMatches() {
-    const groupResults    = document.getElementById('group-results');
-    const knockoutResults = document.getElementById('knockout-results');
-    groupResults.innerHTML = '';
-    knockoutResults.innerHTML = '';
-
-    const played = appData.matches.filter(m => m.score1 !== null && m.score2 !== null);
-
-    if (played.length === 0) {
-        groupResults.innerHTML    = '<div class="empty-state"><p>No results yet</p></div>';
-        knockoutResults.innerHTML = '<div class="empty-state"><p>No results yet</p></div>';
-        return;
-    }
-
-    played.forEach(match => {
-        const card = document.createElement('div');
-        card.className = 'match-card';
-        const p1 = getPlayerName(match.team1);
-        const p2 = getPlayerName(match.team2);
-        card.innerHTML = `
-            <div class="match-team">
-                <div class="match-group">Group ${match.group}</div>
-                <strong>${match.team1}</strong>
-                ${p1 ? `<div class="match-player">${p1}</div>` : ''}
-            </div>
-            <div class="match-score">
-                <span class="score-value">${match.score1}</span>
-                <span class="match-vs">-</span>
-                <span class="score-value">${match.score2}</span>
-            </div>
-            <div class="match-team">
-                <strong>${match.team2}</strong>
-                ${p2 ? `<div class="match-player">${p2}</div>` : ''}
-                <div class="match-date">${match.date}</div>
-            </div>`;
-        (match.stage === 'group' ? groupResults : knockoutResults).appendChild(card);
     });
 }
 
