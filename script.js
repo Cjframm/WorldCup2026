@@ -3,64 +3,64 @@ const ALL_MATCHES = [
     // GROUP A
     { id: 1,  group: 'A', stage: 'group',    team1: 'Mexico',            team2: 'South Africa',          date: '2026-06-11', status: 'completed', score1: 2,    score2: 0    },
     { id: 2,  group: 'A', stage: 'group',    team1: 'South Korea',       team2: 'Czech Republic',        date: '2026-06-11', status: 'completed', score1: 2,    score2: 1    },
-    { id: 3,  group: 'A', stage: 'group',    team1: 'Mexico',            team2: 'South Korea',           date: '2026-06-18', status: 'upcoming',  score1: null, score2: null },
-    { id: 4,  group: 'A', stage: 'group',    team1: 'Czech Republic',    team2: 'South Africa',          date: '2026-06-18', status: 'upcoming',  score1: null, score2: null },
+    { id: 3,  group: 'A', stage: 'group',    team1: 'Mexico',            team2: 'South Korea',           date: '2026-06-18', status: 'completed', score1: 1,    score2: 0    },
+    { id: 4,  group: 'A', stage: 'group',    team1: 'Czech Republic',    team2: 'South Africa',          date: '2026-06-18', status: 'completed', score1: 1,    score2: 1    },
     { id: 5,  group: 'A', stage: 'group',    team1: 'Czech Republic',    team2: 'Mexico',                date: '2026-06-24', status: 'upcoming',  score1: null, score2: null },
     { id: 6,  group: 'A', stage: 'group',    team1: 'South Africa',      team2: 'South Korea',           date: '2026-06-24', status: 'upcoming',  score1: null, score2: null },
 
     // GROUP B
     { id: 7,  group: 'B', stage: 'group',    team1: 'Canada',            team2: 'Bosnia and Herzegovina',date: '2026-06-12', status: 'completed', score1: 1,    score2: 1    },
     { id: 8,  group: 'B', stage: 'group',    team1: 'Qatar',             team2: 'Switzerland',           date: '2026-06-13', status: 'completed', score1: 1,    score2: 1    },
-    { id: 9,  group: 'B', stage: 'group',    team1: 'Switzerland',       team2: 'Bosnia and Herzegovina',date: '2026-06-18', status: 'upcoming',  score1: null, score2: null },
-    { id: 10, group: 'B', stage: 'group',    team1: 'Canada',            team2: 'Qatar',                 date: '2026-06-18', status: 'upcoming',  score1: null, score2: null },
+    { id: 9,  group: 'B', stage: 'group',    team1: 'Switzerland',       team2: 'Bosnia and Herzegovina',date: '2026-06-18', status: 'completed', score1: 4,    score2: 1    },
+    { id: 10, group: 'B', stage: 'group',    team1: 'Canada',            team2: 'Qatar',                 date: '2026-06-18', status: 'completed', score1: 6,    score2: 0    },
     { id: 11, group: 'B', stage: 'group',    team1: 'Switzerland',       team2: 'Canada',                date: '2026-06-24', status: 'upcoming',  score1: null, score2: null },
     { id: 12, group: 'B', stage: 'group',    team1: 'Bosnia and Herzegovina', team2: 'Qatar',            date: '2026-06-24', status: 'upcoming',  score1: null, score2: null },
 
     // GROUP C
     { id: 13, group: 'C', stage: 'group',    team1: 'Brazil',            team2: 'Morocco',               date: '2026-06-13', status: 'completed', score1: 1,    score2: 1    },
     { id: 14, group: 'C', stage: 'group',    team1: 'Haiti',             team2: 'Scotland',              date: '2026-06-13', status: 'completed', score1: 0,    score2: 1    },
-    { id: 15, group: 'C', stage: 'group',    team1: 'Scotland',          team2: 'Morocco',               date: '2026-06-19', status: 'upcoming',  score1: null, score2: null },
-    { id: 16, group: 'C', stage: 'group',    team1: 'Brazil',            team2: 'Haiti',                 date: '2026-06-19', status: 'upcoming',  score1: null, score2: null },
+    { id: 15, group: 'C', stage: 'group',    team1: 'Scotland',          team2: 'Morocco',               date: '2026-06-19', status: 'completed', score1: 0,    score2: 1    },
+    { id: 16, group: 'C', stage: 'group',    team1: 'Brazil',            team2: 'Haiti',                 date: '2026-06-19', status: 'completed', score1: 3,    score2: 0    },
     { id: 17, group: 'C', stage: 'group',    team1: 'Scotland',          team2: 'Brazil',                date: '2026-06-24', status: 'upcoming',  score1: null, score2: null },
     { id: 18, group: 'C', stage: 'group',    team1: 'Morocco',           team2: 'Haiti',                 date: '2026-06-24', status: 'upcoming',  score1: null, score2: null },
 
     // GROUP D
     { id: 19, group: 'D', stage: 'group',    team1: 'USA',               team2: 'Paraguay',              date: '2026-06-12', status: 'completed', score1: 4,    score2: 1    },
     { id: 20, group: 'D', stage: 'group',    team1: 'Australia',         team2: 'Turkey',                date: '2026-06-13', status: 'completed', score1: 2,    score2: 0    },
-    { id: 21, group: 'D', stage: 'group',    team1: 'USA',               team2: 'Australia',             date: '2026-06-19', status: 'upcoming',  score1: null, score2: null },
-    { id: 22, group: 'D', stage: 'group',    team1: 'Turkey',            team2: 'Paraguay',              date: '2026-06-19', status: 'upcoming',  score1: null, score2: null },
+    { id: 21, group: 'D', stage: 'group',    team1: 'USA',               team2: 'Australia',             date: '2026-06-19', status: 'completed', score1: 2,    score2: 0    },
+    { id: 22, group: 'D', stage: 'group',    team1: 'Turkey',            team2: 'Paraguay',              date: '2026-06-19', status: 'completed', score1: 0,    score2: 1    },
     { id: 23, group: 'D', stage: 'group',    team1: 'Turkey',            team2: 'USA',                   date: '2026-06-25', status: 'upcoming',  score1: null, score2: null },
     { id: 24, group: 'D', stage: 'group',    team1: 'Paraguay',          team2: 'Australia',             date: '2026-06-25', status: 'upcoming',  score1: null, score2: null },
 
     // GROUP E
     { id: 25, group: 'E', stage: 'group',    team1: 'Germany',           team2: 'Curaçao',               date: '2026-06-14', status: 'completed', score1: 7,    score2: 1    },
     { id: 26, group: 'E', stage: 'group',    team1: 'Ivory Coast',       team2: 'Ecuador',               date: '2026-06-14', status: 'completed', score1: 1,    score2: 0    },
-    { id: 27, group: 'E', stage: 'group',    team1: 'Germany',           team2: 'Ivory Coast',           date: '2026-06-20', status: 'upcoming',  score1: null, score2: null },
-    { id: 28, group: 'E', stage: 'group',    team1: 'Ecuador',           team2: 'Curaçao',               date: '2026-06-20', status: 'upcoming',  score1: null, score2: null },
+    { id: 27, group: 'E', stage: 'group',    team1: 'Germany',           team2: 'Ivory Coast',           date: '2026-06-20', status: 'completed', score1: 2,    score2: 1    },
+    { id: 28, group: 'E', stage: 'group',    team1: 'Ecuador',           team2: 'Curaçao',               date: '2026-06-20', status: 'completed', score1: 0,    score2: 0    },
     { id: 29, group: 'E', stage: 'group',    team1: 'Curaçao',           team2: 'Ivory Coast',           date: '2026-06-25', status: 'upcoming',  score1: null, score2: null },
     { id: 30, group: 'E', stage: 'group',    team1: 'Ecuador',           team2: 'Germany',               date: '2026-06-25', status: 'upcoming',  score1: null, score2: null },
 
     // GROUP F
     { id: 31, group: 'F', stage: 'group',    team1: 'Netherlands',       team2: 'Japan',                 date: '2026-06-14', status: 'completed', score1: 2,    score2: 2    },
     { id: 32, group: 'F', stage: 'group',    team1: 'Sweden',            team2: 'Tunisia',               date: '2026-06-14', status: 'completed', score1: 5,    score2: 1    },
-    { id: 33, group: 'F', stage: 'group',    team1: 'Netherlands',       team2: 'Sweden',                date: '2026-06-20', status: 'upcoming',  score1: null, score2: null },
-    { id: 34, group: 'F', stage: 'group',    team1: 'Tunisia',           team2: 'Japan',                 date: '2026-06-20', status: 'upcoming',  score1: null, score2: null },
+    { id: 33, group: 'F', stage: 'group',    team1: 'Netherlands',       team2: 'Sweden',                date: '2026-06-20', status: 'completed', score1: 5,    score2: 1    },
+    { id: 34, group: 'F', stage: 'group',    team1: 'Tunisia',           team2: 'Japan',                 date: '2026-06-20', status: 'completed', score1: 0,    score2: 4    },
     { id: 35, group: 'F', stage: 'group',    team1: 'Japan',             team2: 'Sweden',                date: '2026-06-25', status: 'upcoming',  score1: null, score2: null },
     { id: 36, group: 'F', stage: 'group',    team1: 'Tunisia',           team2: 'Netherlands',           date: '2026-06-25', status: 'upcoming',  score1: null, score2: null },
 
     // GROUP G
     { id: 37, group: 'G', stage: 'group',    team1: 'Belgium',           team2: 'Egypt',                 date: '2026-06-15', status: 'completed', score1: 1,    score2: 1    },
     { id: 38, group: 'G', stage: 'group',    team1: 'Iran',              team2: 'New Zealand',           date: '2026-06-15', status: 'completed', score1: 2,    score2: 2    },
-    { id: 39, group: 'G', stage: 'group',    team1: 'Belgium',           team2: 'Iran',                  date: '2026-06-21', status: 'upcoming',  score1: null, score2: null },
-    { id: 40, group: 'G', stage: 'group',    team1: 'New Zealand',       team2: 'Egypt',                 date: '2026-06-21', status: 'upcoming',  score1: null, score2: null },
+    { id: 39, group: 'G', stage: 'group',    team1: 'Belgium',           team2: 'Iran',                  date: '2026-06-21', status: 'completed', score1: 0,    score2: 0    },
+    { id: 40, group: 'G', stage: 'group',    team1: 'New Zealand',       team2: 'Egypt',                 date: '2026-06-21', status: 'completed', score1: 1,    score2: 3    },
     { id: 41, group: 'G', stage: 'group',    team1: 'Egypt',             team2: 'Iran',                  date: '2026-06-26', status: 'upcoming',  score1: null, score2: null },
     { id: 42, group: 'G', stage: 'group',    team1: 'New Zealand',       team2: 'Belgium',               date: '2026-06-26', status: 'upcoming',  score1: null, score2: null },
 
     // GROUP H
     { id: 43, group: 'H', stage: 'group',    team1: 'Spain',             team2: 'Cape Verde',            date: '2026-06-15', status: 'completed', score1: 0,    score2: 0    },
     { id: 44, group: 'H', stage: 'group',    team1: 'Saudi Arabia',      team2: 'Uruguay',               date: '2026-06-15', status: 'completed', score1: 1,    score2: 1    },
-    { id: 45, group: 'H', stage: 'group',    team1: 'Uruguay',           team2: 'Cape Verde',            date: '2026-06-21', status: 'upcoming',  score1: null, score2: null },
-    { id: 46, group: 'H', stage: 'group',    team1: 'Spain',             team2: 'Saudi Arabia',          date: '2026-06-21', status: 'upcoming',  score1: null, score2: null },
+    { id: 45, group: 'H', stage: 'group',    team1: 'Uruguay',           team2: 'Cape Verde',            date: '2026-06-21', status: 'completed', score1: 2,    score2: 2    },
+    { id: 46, group: 'H', stage: 'group',    team1: 'Spain',             team2: 'Saudi Arabia',          date: '2026-06-21', status: 'completed', score1: 4,    score2: 0    },
     { id: 47, group: 'H', stage: 'group',    team1: 'Cape Verde',        team2: 'Saudi Arabia',          date: '2026-06-26', status: 'upcoming',  score1: null, score2: null },
     { id: 48, group: 'H', stage: 'group',    team1: 'Uruguay',           team2: 'Spain',                 date: '2026-06-26', status: 'upcoming',  score1: null, score2: null },
 
@@ -265,16 +265,24 @@ function renderStandings() {
                 if (my > opp) wins++; else if (my === opp) draws++; else losses++;
             });
 
+            const points = wins * 3 + draws;
             return {
                 team, playerAssigned, wins, draws, losses,
                 goalsFor, goalsAgainst,
                 goalDiff: goalsFor - goalsAgainst,
-                points: wins * 3 + draws,
-                played: played.length
+                points,
+                played: played.length,
+                maxPossible: points + (3 - played.length) * 3
             };
         }).sort((a, b) =>
             b.points - a.points || b.goalDiff - a.goalDiff || b.goalsFor - a.goalsFor
         );
+
+        // A team is out once it can no longer catch at least 2 rivals (i.e. can't reach top 2)
+        groupStandings.forEach(s => {
+            const aheadCount = groupStandings.filter(o => o !== s && o.points > s.maxPossible).length;
+            s.eliminated = aheadCount >= 2;
+        });
 
         const groupCard = document.createElement('div');
         groupCard.className = 'group-card';
@@ -300,9 +308,10 @@ function renderStandings() {
                 ? (s.playerAssigned ? s.playerAssigned.name : '—')
                 : '🔒';
             const posClass = idx === 0 ? 'pos-1st' : idx === 1 ? 'pos-2nd' : '';
+            const eliminatedClass = s.eliminated ? ' eliminated' : '';
             html += `
-                <div class="group-row ${posClass}">
-                    <div class="team-name-col"><strong>${s.team}</strong></div>
+                <div class="group-row ${posClass}${eliminatedClass}">
+                    <div class="team-name-col"><strong>${s.team}</strong>${s.eliminated ? '<span class="out-badge">OUT</span>' : ''}</div>
                     <div class="player-col">${playerName}</div>
                     <div class="stat-col">${s.played}</div>
                     <div class="stat-col">${s.wins}</div>
