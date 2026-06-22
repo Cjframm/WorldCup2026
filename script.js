@@ -122,8 +122,6 @@ const ALL_MATCHES = [
 ];
 
 let appData = { players: [], matches: [] };
-let playersUnlocked = false;
-const PLAYER_PIN = '0067';
 
 // ── Init ─────────────────────────────────────────────────────────────────────
 
@@ -164,56 +162,7 @@ function switchSchedule(stage) {
     document.querySelector(`.schedule-btn[data-stage="${stage}"]`).classList.add('active');
 }
 
-// ── Player lock ───────────────────────────────────────────────────────────────
-
-function togglePlayersLock() {
-    if (playersUnlocked) {
-        playersUnlocked = false;
-        renderAll();
-        updateLockButton();
-    } else {
-        openPinModal();
-    }
-}
-
-function updateLockButton() {
-    const btn = document.getElementById('lockBtn');
-    if (!btn) return;
-    btn.textContent = playersUnlocked ? '🔓 Players' : '🔒 Players';
-    btn.classList.toggle('unlocked', playersUnlocked);
-}
-
-function openPinModal() {
-    const input = document.getElementById('pinInput');
-    const error = document.getElementById('pinError');
-    input.value = '';
-    error.classList.add('hidden');
-    document.getElementById('pinModal').classList.remove('hidden');
-    setTimeout(() => input.focus(), 50);
-    input.onkeydown = (e) => { if (e.key === 'Enter') submitPin(); };
-}
-
-function closePinModal() {
-    document.getElementById('pinModal').classList.add('hidden');
-}
-
-function submitPin() {
-    const input = document.getElementById('pinInput');
-    const error = document.getElementById('pinError');
-    if (input.value === PLAYER_PIN) {
-        playersUnlocked = true;
-        closePinModal();
-        renderAll();
-        updateLockButton();
-    } else {
-        error.classList.remove('hidden');
-        input.value = '';
-        input.focus();
-    }
-}
-
 function getPlayerName(team) {
-    if (!playersUnlocked) return '';
     const player = appData.players.find(p => p.team === team);
     return player ? player.name : '';
 }
@@ -304,9 +253,7 @@ function renderStandings() {
                 </div>`;
 
         groupStandings.forEach((s, idx) => {
-            const playerName = playersUnlocked
-                ? (s.playerAssigned ? s.playerAssigned.name : '—')
-                : '🔒';
+            const playerName = s.playerAssigned ? s.playerAssigned.name : '—';
             const posClass = idx === 0 ? 'pos-1st' : idx === 1 ? 'pos-2nd' : '';
             const eliminatedClass = s.eliminated ? ' eliminated' : '';
             html += `

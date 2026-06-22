@@ -21,7 +21,6 @@
         <nav class="nav-tabs">
             <button type="button" class="nav-btn active" data-tab="standings">Standings</button>
             <button type="button" class="nav-btn" data-tab="schedule">Schedule</button>
-            <button type="button" id="lockBtn" class="lock-btn" onclick="togglePlayersLock()">🔒 Players</button>
         </nav>
 
         <main class="main-content">
@@ -40,21 +39,6 @@
                 <div id="knockout-schedule" class="schedule-list"></div>
             </section>
         </main>
-
-        <!-- PIN Modal -->
-        <div id="pinModal" class="pin-overlay hidden">
-            <div class="pin-modal">
-                <div class="pin-icon">🔒</div>
-                <h2 class="pin-title">Players are locked</h2>
-                <p class="pin-subtitle">Enter the PIN to reveal player names</p>
-                <input id="pinInput" class="pin-input" type="password" maxlength="4" placeholder="••••" inputmode="numeric" />
-                <p id="pinError" class="pin-error hidden">Incorrect PIN — try again</p>
-                <div class="pin-actions">
-                    <button type="button" class="pin-btn-cancel" onclick="closePinModal()">Cancel</button>
-                    <button type="button" class="pin-btn-submit" onclick="submitPin()">Unlock</button>
-                </div>
-            </div>
-        </div>
     </div>
 
     <script src="players.js"></script>
