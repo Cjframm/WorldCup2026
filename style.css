@@ -386,6 +386,13 @@ body {
     text-align: center;
 }
 
+.fixture-pens {
+    display: block;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--text-light);
+}
+
 .fixture-team-right {
     text-align: right;
 }
